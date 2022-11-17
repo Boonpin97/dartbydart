@@ -10,7 +10,8 @@ class playerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var _backgroundColor = Colors.white;
+    var _playerTurnColor = Colors.yellow;
+    var _notTurnColor = Colors.white;
     return Expanded(
       child: Container(
         height: 150,
@@ -19,7 +20,7 @@ class playerCard extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.fromLTRB(1, 1, 1, 0),
-              color: (_Current_Player == _Players.name) ? Colors.green : _backgroundColor,
+              color: (_Current_Player == _Players.name) ? _playerTurnColor : _notTurnColor,
               height: 35,
               alignment: Alignment.center,
               child: Text(
@@ -34,7 +35,9 @@ class playerCard extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(1, 0, 1, 0),
-              color: _backgroundColor,
+              color: (_Current_Player == _Players.name)
+                  ? _playerTurnColor
+                  : _notTurnColor,
               height: 50,
               alignment: Alignment.topCenter,
               child: Text(
@@ -53,7 +56,7 @@ class playerCard extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(1, 0, 0, 0),
-                    color: _backgroundColor,
+                    color:(_Current_Player == _Players.name) ? _playerTurnColor : _notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -69,7 +72,7 @@ class playerCard extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 1, 0),
-                    color: _backgroundColor,
+                    color: (_Current_Player == _Players.name) ? _playerTurnColor : _notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -89,7 +92,7 @@ class playerCard extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(1, 0, 0, 0),
-                    color: _backgroundColor,
+                    color: (_Current_Player == _Players.name) ? _playerTurnColor : _notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -105,7 +108,7 @@ class playerCard extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 1, 0),
-                    color: _backgroundColor,
+                    color: (_Current_Player == _Players.name) ? _playerTurnColor : _notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
                     child: Text(
