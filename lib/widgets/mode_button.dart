@@ -13,7 +13,7 @@ class modeButton extends StatelessWidget {
       onPressed: () => _functionHandler(_score),
       style: ElevatedButton.styleFrom(
           backgroundColor:
-              (_score == _Mode) ? Colors.green[800] : Colors.red[800]),
+              (_score == _Mode) ? Colors.green[700] : Colors.grey[600]),
       child: Text(
         "$_score",
         style: const TextStyle(

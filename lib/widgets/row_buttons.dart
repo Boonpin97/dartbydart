@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firstapp/widgets/mode_button.dart';
+import '/widgets/mode_button.dart';
 
 class rowButtons extends StatelessWidget {
 

@@ -1,97 +1,106 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:firstapp/widgets/row_buttons.dart';
-import 'package:firstapp/widgets/player_list.dart';
-import 'package:firstapp/widgets/go_button.dart';
+import '/widgets/row_buttons.dart';
+import '/widgets/player_list.dart';
+import '/widgets/go_button.dart';
+import '/class/players.dart';
 
-int Mode = 301;
+int _Mode = 301;
 
 class Home extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  List<Players> _Players;
+  Home(this._Players);
+  _HomeState createState() => _HomeState(_Players);
 }
 
 class _HomeState extends State<Home> {
-  List Players = [];
+  List<Players> _Players;
+  _HomeState(this._Players);
   var Controller = TextEditingController();
 
   void _modeButtonFunction(int mode) {
     setState(() {
-      Mode = mode;
+      _Mode = mode;
     });
   }
 
   void _removeName(int index) {
     setState(() {
-      Players.removeAt(index);
+      _Players.removeAt(index);
     });
   }
 
   void _addButtonFunction() {
     print("This function is triggered");
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 600,
-          color: Colors.blue[500],
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Column(
-                  children: [
-                    const Text(
-                      "Enter your name:",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: Controller,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                      ),
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(
-                          fontSize: 40,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.grey[200],
+    if (_Players.length < 4) {
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 700,
+            color: Colors.blue[500],
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Enter your name:",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
                         ),
-                        hintText: "Handsomeboi69",
-                        border: const UnderlineInputBorder(),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      height: 50,
-                      width: 100,
-                      color: Colors.green[500],
-                      child: IconButton(
-                        iconSize: 30,
-                        icon: const Icon(Icons.check),
-                        color: Colors.white,
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Players.add(Controller.text);
-                          setState(() {
-                            Controller.text = "";
-                          });
-                        },
+                      TextFormField(
+                        maxLength: 11,
+                        controller: Controller,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                        ),
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontSize: 40,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.grey[200],
+                          ),
+                          hintText: "Handsomeboi69",
+                          border: const UnderlineInputBorder(),
+                        ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        height: 50,
+                        width: 100,
+                        color: Colors.green[500],
+                        child: IconButton(
+                          iconSize: 30,
+                          icon: const Icon(Icons.check),
+                          color: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            if (Controller.text.isNotEmpty) {
+                              _Players.add(Players(
+                                Controller.text,
+                              ));
+                              setState(() {
+                                Controller.text = "";
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+              ],
+            ),
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -111,12 +120,12 @@ class _HomeState extends State<Home> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(40, 10, 40, 0),
+          margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
           child: Column(
             children: <Widget>[
-              playerList(Players, _addButtonFunction, _removeName),
-              rowButtons(_modeButtonFunction, Mode),
-              goButton(),
+              playerList(_Players, _addButtonFunction, _removeName),
+              rowButtons(_modeButtonFunction, _Mode),
+              goButton(_Players, _Mode),
             ],
           ),
         ),
