@@ -8,7 +8,8 @@ void main() {
   List<Players> _Players = [
     Players("Boon Pin"),
     Players("Wilson"),
-    Players("Raymond")
+    Players("Raymond"),
+    Players("Test"),
   ];
   runApp(MaterialApp(
     initialRoute: '/home',

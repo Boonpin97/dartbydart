@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import '/widgets/player_card.dart';
 import '/class/players.dart';
 import '/widgets/dart_board.dart';
-import '../widgets/point_buttons_row.dart';
+import '/widgets/next_player.dart';
 
-String image_path = "assets/dartboard.jpg";
 double device_width = 0;
 double device_height = 0;
+
+const String image_path = "assets/dartboard.jpg";
 const double _radius = 132.0;
 const double _center_x = 206.0;
 const double _center_y = 466.0;
@@ -49,23 +50,57 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   List<Players> _Players;
   _GameState(this._Players);
-  int _score = 0;
   int _current_dart = 0;
+  int _current_player = 0;
+  int _current_round = 1;
+  bool _auto_next_flag = true;
+  bool _next_player_flag = false;
+  List<int> _score_list = [0, 0, 0, 0];
+
+  _scoreButtonPressed(ind) {
+    _current_dart = ind;
+    setState(() {});
+  }
+
+  _nextPlayerPressed() {
+    _Players[_current_player].current_score -=
+        _score_list.reduce((a, b) => a + b);
+    _current_player += 1;
+    _current_dart = 0;
+    _auto_next_flag = true;
+    _next_player_flag = true;
+    _score_list = [0, 0, 0, 0];
+    if (_current_player >= _Players.length) {
+      _current_round += 1;
+      _current_player = 0;
+    }
+    setState(() {});
+  }
 
   _release(PointerUpEvent details) {
     print("Finger Released");
-    _current_dart += 1;
-    if (_current_dart > 2) _current_dart = 0;
-    //setState(() {});
+    if (_auto_next_flag == true) {
+      _current_dart += 1;
+      if (_current_dart > 3) {
+        _current_dart = 0;
+      } else if (_current_dart > 2) {
+        _auto_next_flag = false;
+      } else {
+        _score_list[_current_dart] = 0;
+      }
+    }
+
+    setState(() {});
   }
 
   _updateCoordinates(PointerEvent details) {
     double x = details.position.dx;
-    double y = details.position.dy;
+    double y = details.position.dy + 20;
     double delta_x = x - _center_x;
     double delta_y = y - _center_y;
     double length = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
     double theta = atan(delta_y / delta_x);
+    int score;
     if (x < _center_x) {
       //2nd and 3rd Quadrant
       theta += pi;
@@ -73,17 +108,18 @@ class _GameState extends State<Game> {
       theta += 2 * pi;
     }
     int index = (theta / (pi / 10)).round();
-    _score = score_seq[index];
+    score = score_seq[index];
     double normalise_length = length / _radius;
     if (normalise_length < ratio[0])
-      _score = 50;
+      score = 50;
     else if (normalise_length > ratio[1] && normalise_length < ratio[2])
-      _score *= 2;
+      score *= 2;
     else if (normalise_length > ratio[3] && normalise_length < ratio[4])
-      _score *= 3;
-    else if (normalise_length > ratio[4]) _score = 0;
-    print("length:$length theta:$theta index: $index, score: $_score");
-
+      score *= 3;
+    else if (normalise_length > ratio[4]) score = 0;
+    print(
+        "length:$length theta:$theta index: $index, score: $score, score list: $_score_list");
+    _score_list[_current_dart] = score;
     setState(() {});
   }
 
@@ -95,8 +131,8 @@ class _GameState extends State<Game> {
     return Scaffold(
         backgroundColor: Colors.blue[500],
         appBar: AppBar(
-          title: const Text(
-            "DartByDart",
+          title: Text(
+            "Round $_current_round",
             style: TextStyle(
               fontSize: 40,
               color: Colors.white,
@@ -108,8 +144,8 @@ class _GameState extends State<Game> {
         body: Column(
           children: [
             Row(children: [
-              ..._Players.map((players) => playerCard(players, "Boon Pin"))
-                  .toList(),
+              ..._Players.map((players) =>
+                  playerCard(players, _Players[_current_player].name)).toList(),
             ]),
             SizedBox(
               height: 10,
@@ -118,7 +154,12 @@ class _GameState extends State<Game> {
             SizedBox(
               height: 10,
             ),
-            pointButtonRow(_score, _current_dart),
+            pointButtonRow(_score_list, _current_dart, _next_player_flag,
+                _scoreButtonPressed),
+            SizedBox(
+              height: 30,
+            ),
+            nextPlayerButton(_nextPlayerPressed),
           ],
         ));
   }
