@@ -85,7 +85,17 @@ class _GameState extends State<Game> {
     if (_current_player >= _Players.length) {
       _current_round += 1;
       _current_player = 0;
-      if (_current_round > 10) {}
+      if (_current_round > 10) {
+        int min_score = 501;
+        int min_player = 0;
+        for (int i = 0; i < _Players.length; i++) {
+          if (_Players[i].current_score < min_score) {
+            min_score = _Players[i].current_score;
+            min_player = i;
+          }
+        }
+        print("Winner is ${_Players[min_player].name}");
+      }
     }
 
     setState(() {});
