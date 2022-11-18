@@ -6,6 +6,7 @@ import '/widgets/player_card.dart';
 import '/class/players.dart';
 import '/widgets/dart_board.dart';
 import '/widgets/next_player.dart';
+import '/widgets/winner.dart';
 
 double device_width = 0;
 double device_height = 0;
@@ -63,8 +64,19 @@ class _GameState extends State<Game> {
   }
 
   _nextPlayerPressed() {
-    _Players[_current_player].current_score -=
-        _score_list.reduce((a, b) => a + b);
+    int total_score = 0;
+    for (int i = 0; i < _score_list.length - 1; i++) {
+      total_score += _score_list[i];
+    }
+    if (total_score <= _Players[_current_player].current_score) {
+      _Players[_current_player].current_score -= total_score;
+    }
+
+    if (_Players[_current_player].current_score == 0) {
+      winner(_Players[_current_player].name);
+      print("Winner: ${_Players[_current_player].name}");
+    }
+
     _current_player += 1;
     _current_dart = 0;
     _auto_next_flag = true;
@@ -73,7 +85,9 @@ class _GameState extends State<Game> {
     if (_current_player >= _Players.length) {
       _current_round += 1;
       _current_player = 0;
+      if (_current_round > 10) {}
     }
+
     setState(() {});
   }
 
@@ -95,7 +109,8 @@ class _GameState extends State<Game> {
 
   _updateCoordinates(PointerEvent details) {
     double x = details.position.dx;
-    double y = details.position.dy + 20;
+    double y = details.position.dy;
+    //double y = details.position.dy + 20;
     double delta_x = x - _center_x;
     double delta_y = y - _center_y;
     double length = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
@@ -113,9 +128,9 @@ class _GameState extends State<Game> {
     if (normalise_length < ratio[0])
       score = 50;
     else if (normalise_length > ratio[1] && normalise_length < ratio[2])
-      score *= 2;
-    else if (normalise_length > ratio[3] && normalise_length < ratio[4])
       score *= 3;
+    else if (normalise_length > ratio[3] && normalise_length < ratio[4])
+      score *= 2;
     else if (normalise_length > ratio[4]) score = 0;
     print(
         "length:$length theta:$theta index: $index, score: $score, score list: $_score_list");
