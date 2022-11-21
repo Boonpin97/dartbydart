@@ -34,7 +34,7 @@ class winnerPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 60,
-                  color: Colors.red[700],
+                  color: Colors.white,
                 ),
               ),
               SizedBox(
