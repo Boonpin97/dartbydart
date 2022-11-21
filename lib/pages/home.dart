@@ -31,7 +31,6 @@ class _HomeState extends State<Home> {
   }
 
   void _addButtonFunction() {
-    print("This function is triggered");
     if (_Players.length < 4) {
       showModalBottomSheet<void>(
         context: context,
