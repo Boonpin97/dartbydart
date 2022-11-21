@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '/pages/home.dart';
 import '/pages/game.dart';
 import '/class/players.dart';
-import '/Test.dart';
 
 void main() {
   List<Players> _Players = [

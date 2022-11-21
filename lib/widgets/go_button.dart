@@ -15,8 +15,9 @@ class goButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: _Players.length != 0
             ? () {
-                for (int i=0; i<_Players.length; i++){
-                  _Players[i].current_score = _Mode;
+                for (int i = 0; i < _Players.length; i++) {
+                  _Players[i].resetScore(_Mode);
+                  print("Reseting ${_Players[i]} 's score");
                 }
                 Navigator.pushNamed(context, "/game");
               }

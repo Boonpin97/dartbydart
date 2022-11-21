@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                             fontStyle: FontStyle.italic,
                             color: Colors.grey[200],
                           ),
-                          hintText: "Handsomeboi69",
+                          hintText: "Insert Here",
                           border: const UnderlineInputBorder(),
                         ),
                       ),

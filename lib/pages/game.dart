@@ -13,8 +13,8 @@ double device_height = 0;
 
 const String image_path = "assets/dartboard.jpg";
 const double _radius = 132.0;
-const double _center_x = 206.0;
-const double _center_y = 466.0;
+const double _center_x = 200.0;
+const double _center_y = 200.0;
 const pi = 3.1415;
 const List<double> ratio = [0.08333, 0.5606, 0.6288, 0.9167, 1];
 const List<int> score_seq = [
@@ -68,6 +68,7 @@ class _GameState extends State<Game> {
     int total_score = 0;
     for (int i = 0; i < _score_list.length - 1; i++) {
       total_score += _score_list[i];
+      _Players[_current_player].appendScore(_score_list[i]);
     }
     if (total_score <= _Players[_current_player].current_score &&
         _Players[_current_player].current_score - total_score != 1) {
@@ -76,7 +77,7 @@ class _GameState extends State<Game> {
 
     if (_Players[_current_player].current_score == 0) {
       print("Winner: ${_Players[_current_player].name}");
-      Navigator.pushNamed(context, "/winner",
+      Navigator.pushReplacementNamed(context, "/winner",
           arguments: {'name': _Players[_current_player].name});
     }
 
@@ -98,7 +99,7 @@ class _GameState extends State<Game> {
           }
         }
         print("Winner is ${_Players[min_player].name}");
-        Navigator.pushNamed(context, "/winner",
+        Navigator.pushReplacementNamed(context, "/winner",
             arguments: {'name': _Players[min_player].name});
       }
     }
@@ -123,9 +124,9 @@ class _GameState extends State<Game> {
   }
 
   _updateCoordinates(PointerEvent details) {
-    double x = details.position.dx;
-    //double y = details.position.dy;
-    double y = details.position.dy + 20;
+    double x = details.localPosition.dx;
+    double y = details.localPosition.dy;
+    //double y = details.position.dy + 20;
     double delta_x = x - _center_x;
     double delta_y = y - _center_y;
     double length = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
@@ -148,7 +149,7 @@ class _GameState extends State<Game> {
       score *= 2;
     else if (normalise_length > ratio[4]) score = 0;
     print(
-        "length:$length theta:$theta index: $index, score: $score, score list: $_score_list");
+        "x: $x, y: $y, length:$length theta:$theta index: $index, score: $score, score list: $_score_list");
     _score_list[_current_dart] = score;
     setState(() {});
   }
