@@ -6,7 +6,7 @@ import '/widgets/player_card.dart';
 import '/class/players.dart';
 import '/widgets/dart_board.dart';
 import '/widgets/next_player.dart';
-import '/widgets/winner.dart';
+import '/pages/winner.dart';
 
 double device_width = 0;
 double device_height = 0;
@@ -43,6 +43,7 @@ const List<int> score_seq = [
 
 class Game extends StatefulWidget {
   List<Players> _Players;
+
   Game(this._Players);
   @override
   _GameState createState() => _GameState(_Players);
@@ -68,13 +69,15 @@ class _GameState extends State<Game> {
     for (int i = 0; i < _score_list.length - 1; i++) {
       total_score += _score_list[i];
     }
-    if (total_score <= _Players[_current_player].current_score) {
+    if (total_score <= _Players[_current_player].current_score &&
+        _Players[_current_player].current_score - total_score != 1) {
       _Players[_current_player].current_score -= total_score;
     }
 
     if (_Players[_current_player].current_score == 0) {
-      winner(_Players[_current_player].name);
       print("Winner: ${_Players[_current_player].name}");
+      Navigator.pushNamed(context, "/winner",
+          arguments: {'name': _Players[_current_player].name});
     }
 
     _current_player += 1;
@@ -95,6 +98,8 @@ class _GameState extends State<Game> {
           }
         }
         print("Winner is ${_Players[min_player].name}");
+        Navigator.pushNamed(context, "/winner",
+            arguments: {'name': _Players[min_player].name});
       }
     }
 
@@ -119,8 +124,8 @@ class _GameState extends State<Game> {
 
   _updateCoordinates(PointerEvent details) {
     double x = details.position.dx;
-    double y = details.position.dy;
-    //double y = details.position.dy + 20;
+    //double y = details.position.dy;
+    double y = details.position.dy + 20;
     double delta_x = x - _center_x;
     double delta_y = y - _center_y;
     double length = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
@@ -182,7 +187,7 @@ class _GameState extends State<Game> {
             pointButtonRow(_score_list, _current_dart, _next_player_flag,
                 _scoreButtonPressed),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
             nextPlayerButton(_nextPlayerPressed),
           ],

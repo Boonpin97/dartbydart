@@ -1,12 +1,12 @@
 <lint-module
     format="1"
-    dir="C:\Users\dorea\Desktop\Flutter\DartByDart\android\app"
+    dir="C:\Users\8Q7B\Desktop\flutter\dartbydart\android\app"
     name=":app"
     type="APP"
     maven="android:app:"
     gradle="7.1.2"
-    buildFolder="C:\Users\dorea\Desktop\Flutter\DartByDart\build\app"
-    bootClassPath="C:\Users\dorea\AppData\Local\Android\sdk\platforms\android-31\android.jar;C:\Users\dorea\AppData\Local\Android\sdk\build-tools\30.0.3\core-lambda-stubs.jar"
+    buildFolder="C:\Users\8Q7B\Desktop\flutter\dartbydart\build\app"
+    bootClassPath="C:\Users\8Q7B\AppData\Local\Android\sdk\platforms\android-31\android.jar;C:\Users\8Q7B\AppData\Local\Android\sdk\build-tools\30.0.3\core-lambda-stubs.jar"
     javaSourceLevel="1.8"
     compileTarget="android-31">
   <lintOptions
