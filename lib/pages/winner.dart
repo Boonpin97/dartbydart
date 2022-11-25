@@ -1,7 +1,11 @@
+import 'package:dartbydart/pages/game.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 Map<dynamic, dynamic> data = {"name": ""};
-String _winner = "";
+List<String> _winner = [];
+
+const String image_path = "assets/chickendinner.png";
 
 class winnerPage extends StatelessWidget {
   @override
@@ -29,27 +33,23 @@ class winnerPage extends StatelessWidget {
               SizedBox(
                 height: 250,
               ),
-              Text(
-                _winner,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 60,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
+              Row(children: [
+                ..._winner
+                    .map((players) => Expanded(
+                          child: Text(
+                            players,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 60 / pow(_winner.length, 0.5),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              ]),
               SizedBox(
                 width: 330,
-                child: Text(
-                  "WINNER WINNER CHICKEN DINNER",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.white,
-                  ),
-                ),
+                child: Image.asset(image_path),
               ),
             ],
           ),
