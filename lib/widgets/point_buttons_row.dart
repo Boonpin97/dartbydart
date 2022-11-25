@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class pointButtonRow extends StatelessWidget {
   @override
   int _current_dart;
@@ -12,7 +11,6 @@ class pointButtonRow extends StatelessWidget {
       this._scoreButtonPressed);
 
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.all(0),
       color: Colors.grey,
@@ -46,7 +44,7 @@ class pointButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => _scoreButtonPressed(ind),
         style: ElevatedButton.styleFrom(
-          backgroundColor: _ternary ? Colors.yellow : Colors.white,
+          backgroundColor: _ternary ? Colors.yellow[300] : Colors.white,
         ),
         child: Container(
           height: 80,

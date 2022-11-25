@@ -91,16 +91,20 @@ class _GameState extends State<Game> {
       _current_player = 0;
       if (_current_round > 10) {
         int min_score = 501;
-        int min_player = 0;
+        List<String> min_player = [];
         for (int i = 0; i < _Players.length; i++) {
-          if (_Players[i].current_score < min_score) {
+          if (_Players[i].current_score <= min_score) {
+            if (_Players[i].current_score != min_score) {
+              min_player = [];
+            }
             min_score = _Players[i].current_score;
-            min_player = i;
+            min_player.add(_Players[i].name);
           }
         }
-        print("Winner is ${_Players[min_player].name}");
+        print("List score: $min_player");
+        //print("Winner is ${_Players[min_player].name}");
         Navigator.pushReplacementNamed(context, "/winner",
-            arguments: {'name': _Players[min_player].name});
+            arguments: {'name': min_player});
       }
     }
 
