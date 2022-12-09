@@ -77,8 +77,9 @@ class _GameState extends State<Game> {
 
     if (_Players[_current_player].current_score == 0) {
       print("Winner: ${_Players[_current_player].name}");
-      Navigator.pushReplacementNamed(context, "/winner",
-          arguments: {'name': _Players[_current_player].name});
+      Navigator.pushReplacementNamed(context, "/winner", arguments: {
+        'name': [_Players[_current_player].name]
+      });
     }
 
     _current_player += 1;
