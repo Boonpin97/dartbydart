@@ -42,15 +42,15 @@ const List<int> score_seq = [
 ];
 
 class Game extends StatefulWidget {
-  List<Players> _Players;
+  final List<Players> _Players;
 
-  Game(this._Players);
+  Game(this._Players, {super.key});
   @override
   _GameState createState() => _GameState(_Players);
 }
 
 class _GameState extends State<Game> {
-  List<Players> _Players;
+  final List<Players> _Players;
   _GameState(this._Players);
   int _current_dart = 0;
   int _current_player = 0;
@@ -65,14 +65,14 @@ class _GameState extends State<Game> {
   }
 
   _nextPlayerPressed() {
-    int total_score = 0;
+    int totalScore = 0;
     for (int i = 0; i < _score_list.length - 1; i++) {
-      total_score += _score_list[i];
+      totalScore += _score_list[i];
       _Players[_current_player].appendScore(_score_list[i]);
     }
-    if (total_score <= _Players[_current_player].current_score &&
-        _Players[_current_player].current_score - total_score != 1) {
-      _Players[_current_player].current_score -= total_score;
+    if (totalScore <= _Players[_current_player].current_score &&
+        _Players[_current_player].current_score - totalScore != 1) {
+      _Players[_current_player].current_score -= totalScore;
     }
 
     if (_Players[_current_player].current_score == 0) {
@@ -91,21 +91,21 @@ class _GameState extends State<Game> {
       _current_round += 1;
       _current_player = 0;
       if (_current_round > 10) {
-        int min_score = 501;
-        List<String> min_player = [];
+        int minScore = 501;
+        List<String> minPlayer = [];
         for (int i = 0; i < _Players.length; i++) {
-          if (_Players[i].current_score <= min_score) {
-            if (_Players[i].current_score != min_score) {
-              min_player = [];
+          if (_Players[i].current_score <= minScore) {
+            if (_Players[i].current_score != minScore) {
+              minPlayer = [];
             }
-            min_score = _Players[i].current_score;
-            min_player.add(_Players[i].name);
+            minScore = _Players[i].current_score;
+            minPlayer.add(_Players[i].name);
           }
         }
-        print("List score: $min_player");
+        print("List score: $minPlayer");
         //print("Winner is ${_Players[min_player].name}");
         Navigator.pushReplacementNamed(context, "/winner",
-            arguments: {'name': min_player});
+            arguments: {'name': minPlayer});
       }
     }
 
@@ -132,10 +132,10 @@ class _GameState extends State<Game> {
     double x = details.localPosition.dx;
     double y = details.localPosition.dy;
     //double y = details.position.dy + 20;
-    double delta_x = x - _center_x;
-    double delta_y = y - _center_y;
-    double length = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
-    double theta = atan(delta_y / delta_x);
+    double deltaX = x - _center_x;
+    double deltaY = y - _center_y;
+    double length = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+    double theta = atan(deltaY / deltaX);
     int score;
     if (x < _center_x) {
       //2nd and 3rd Quadrant
@@ -145,14 +145,14 @@ class _GameState extends State<Game> {
     }
     int index = (theta / (pi / 10)).round();
     score = score_seq[index];
-    double normalise_length = length / _radius;
-    if (normalise_length < ratio[0])
+    double normaliseLength = length / _radius;
+    if (normaliseLength < ratio[0]) {
       score = 50;
-    else if (normalise_length > ratio[1] && normalise_length < ratio[2])
+    } else if (normaliseLength > ratio[1] && normaliseLength < ratio[2])
       score *= 3;
-    else if (normalise_length > ratio[3] && normalise_length < ratio[4])
+    else if (normaliseLength > ratio[3] && normaliseLength < ratio[4])
       score *= 2;
-    else if (normalise_length > ratio[4]) score = 0;
+    else if (normaliseLength > ratio[4]) score = 0;
     print(
         "x: $x, y: $y, length:$length theta:$theta index: $index, score: $score, score list: $_score_list");
     _score_list[_current_dart] = score;
@@ -161,15 +161,16 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
-    double _height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
         backgroundColor: Colors.blue[500],
         appBar: AppBar(
+          backgroundColor: Colors.blue[800],
           title: Text(
             "Round $_current_round",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 40,
               color: Colors.white,
             ),
@@ -183,16 +184,16 @@ class _GameState extends State<Game> {
               ..._Players.map((players) =>
                   playerCard(players, _Players[_current_player].name)).toList(),
             ]),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             dartBoard(_updateCoordinates, _release),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             pointButtonRow(_score_list, _current_dart, _next_player_flag,
                 _scoreButtonPressed),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             nextPlayerButton(_nextPlayerPressed),

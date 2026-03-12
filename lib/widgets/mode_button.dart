@@ -5,7 +5,7 @@ class modeButton extends StatelessWidget {
   final Function _functionHandler;
   final int _Mode;
 
-  modeButton(this._score, this._functionHandler, this._Mode);
+  const modeButton(this._score, this._functionHandler, this._Mode, {super.key});
 
   @override
   Widget build(BuildContext context) {

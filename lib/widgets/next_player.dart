@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class nextPlayerButton extends StatelessWidget {
-  VoidCallback _nextPlayerPressed;
-  nextPlayerButton(this._nextPlayerPressed);
+  final VoidCallback _nextPlayerPressed;
+  nextPlayerButton(this._nextPlayerPressed, {super.key});
 
   @override
   Widget build(BuildContext context) {

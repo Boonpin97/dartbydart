@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '/class/players.dart';
 
 class playerCard extends StatelessWidget {
-  Players _Players;
-  String _Current_Player;
-  playerCard(this._Players, this._Current_Player);
+  final Players _Players;
+  final String _Current_Player;
+  playerCard(this._Players, this._Current_Player, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var _playerTurnColor = Colors.yellow[300];
-    var _notTurnColor = Colors.white;
+    var playerTurnColor = Colors.yellow[300];
+    var notTurnColor = Colors.white;
     return Expanded(
       child: Container(
         height: 150,
@@ -17,10 +17,10 @@ class playerCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(1, 1, 1, 0),
+              margin: const EdgeInsets.fromLTRB(1, 1, 1, 0),
               color: (_Current_Player == _Players.name)
-                  ? _playerTurnColor
-                  : _notTurnColor,
+                  ? playerTurnColor
+                  : notTurnColor,
               height: 35,
               alignment: Alignment.center,
               child: Text(
@@ -34,10 +34,10 @@ class playerCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(1, 0, 1, 0),
+              margin: const EdgeInsets.fromLTRB(1, 0, 1, 0),
               color: (_Current_Player == _Players.name)
-                  ? _playerTurnColor
-                  : _notTurnColor,
+                  ? playerTurnColor
+                  : notTurnColor,
               height: 50,
               alignment: Alignment.topCenter,
               child: Text(
@@ -55,15 +55,15 @@ class playerCard extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(1, 0, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(1, 0, 0, 0),
                     color: (_Current_Player == _Players.name)
-                        ? _playerTurnColor
-                        : _notTurnColor,
+                        ? playerTurnColor
+                        : notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
-                    child: Text(
+                    child: const Text(
                       "High",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
                         color: Colors.black,
                       ),
@@ -73,15 +73,15 @@ class playerCard extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 1, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                     color: (_Current_Player == _Players.name)
-                        ? _playerTurnColor
-                        : _notTurnColor,
+                        ? playerTurnColor
+                        : notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
-                    child: Text(
+                    child: const Text(
                       "Avg",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20,
                         color: Colors.black,
                       ),
@@ -95,10 +95,10 @@ class playerCard extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(1, 0, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(1, 0, 0, 0),
                     color: (_Current_Player == _Players.name)
-                        ? _playerTurnColor
-                        : _notTurnColor,
+                        ? playerTurnColor
+                        : notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -113,10 +113,10 @@ class playerCard extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 1, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 0, 1, 0),
                     color: (_Current_Player == _Players.name)
-                        ? _playerTurnColor
-                        : _notTurnColor,
+                        ? playerTurnColor
+                        : notTurnColor,
                     height: 30,
                     alignment: Alignment.topCenter,
                     child: Text(

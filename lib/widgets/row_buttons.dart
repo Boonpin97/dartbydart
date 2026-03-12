@@ -6,7 +6,7 @@ class rowButtons extends StatelessWidget {
   final Function _functionHandler;
   final int _Mode;
 
-  rowButtons(this._functionHandler, this._Mode);
+  const rowButtons(this._functionHandler, this._Mode, {super.key});
 
   @override
   Widget build(BuildContext context) {

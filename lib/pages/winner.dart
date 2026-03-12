@@ -8,6 +8,8 @@ List<String> _winner = [];
 const String image_path = "assets/chickendinner.png";
 
 class winnerPage extends StatelessWidget {
+  const winnerPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context)!.settings.arguments as Map;
@@ -16,7 +18,8 @@ class winnerPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.blue[500],
         appBar: AppBar(
-          title: Text(
+          backgroundColor: Colors.blue[800],
+          title: const Text(
             "WINNER!",
             style: TextStyle(
               fontSize: 40,
@@ -30,7 +33,7 @@ class winnerPage extends StatelessWidget {
           alignment: Alignment.center,
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 250,
               ),
               Row(children: [

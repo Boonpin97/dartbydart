@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '/class/players.dart';
 
 class playerList extends StatelessWidget {
-  List<Players> _Players  = [];
+  final List<Players> _Players;
   final VoidCallback _functionHandler;
   final Function _functionHandler2;
 
-  playerList(this._Players, this._functionHandler, this._functionHandler2);
+  playerList(this._Players, this._functionHandler, this._functionHandler2, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class playerList extends StatelessWidget {
           height: 600,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 550,
                 child: ListView.builder(
                   shrinkWrap: true,

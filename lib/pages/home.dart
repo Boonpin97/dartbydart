@@ -8,13 +8,14 @@ int _Mode = 301;
 
 class Home extends StatefulWidget {
   @override
-  List<Players> _Players;
-  Home(this._Players);
+  final List<Players> _Players;
+  Home(this._Players, {super.key});
+  @override
   _HomeState createState() => _HomeState(_Players);
 }
 
 class _HomeState extends State<Home> {
-  List<Players> _Players;
+  final List<Players> _Players;
   _HomeState(this._Players);
   var Controller = TextEditingController();
 
@@ -70,7 +71,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         height: 50,
                         width: 100,
                         color: Colors.green[500],
@@ -107,6 +108,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.blue[500],
       appBar: AppBar(
+        backgroundColor: Colors.blue[800],
         title: const Text(
           "DartByDart",
           style: TextStyle(

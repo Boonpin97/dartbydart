@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class pointButtonRow extends StatelessWidget {
   @override
-  int _current_dart;
-  bool _next_player_flag;
-  Function _scoreButtonPressed;
+  final int _current_dart;
+  final bool _next_player_flag;
+  final Function _scoreButtonPressed;
   List<int> score;
 
   pointButtonRow(this.score, this._current_dart, this._next_player_flag,
-      this._scoreButtonPressed);
+      this._scoreButtonPressed, {super.key});
 
+  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(0),
+      margin: const EdgeInsets.all(0),
       color: Colors.grey,
       height: 80,
       width: double.infinity,
@@ -31,12 +32,12 @@ class pointButtonRow extends StatelessWidget {
 }
 
 class pointButton extends StatelessWidget {
-  String _text;
-  bool _ternary;
+  final String _text;
+  final bool _ternary;
   int ind;
-  Function _scoreButtonPressed;
+  final Function _scoreButtonPressed;
 
-  pointButton(this._text, this._ternary, this.ind, this._scoreButtonPressed);
+  pointButton(this._text, this._ternary, this.ind, this._scoreButtonPressed, {super.key});
 
   @override
   Widget build(BuildContext context) {
